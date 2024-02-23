@@ -37,15 +37,23 @@ local builtin = require("telescope.builtin")
 keymap.set("n", "<leader>pf", builtin.find_files, {})
 keymap.set("n", "<C-p>", builtin.git_files, {})
 keymap.set("n", "<leader>ps", function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+  builtin.grep_string({ search = vim.fn.input("Grep > ") })
+end)
+keymap.set("n", "<leader>pws", function()
+  local word = vim.fn.expand("<cword>")
+  builtin.grep_string({ search = word })
+end)
+keymap.set("n", "<leader>pWs", function()
+  local word = vim.fn.expand("<cWORD>")
+  builtin.grep_string({ search = word })
 end)
 keymap.set("n", "<leader>vh", builtin.help_tags, {})
 keymap.set("n", "<leader>u", ":Telescope undo<CR>", {})
 
 -- Nvim Tree
-keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", {
-	noremap = true,
-})
+-- keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", {
+--   noremap = true,
+-- })
 
 -- Lspconfig
 keymap.set("n", "K", vim.lsp.buf.hover, {})
@@ -53,21 +61,23 @@ keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
 keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
 
-keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-keymap.set('n', '[d', vim.diagnostic.goto_prev)
-keymap.set('n', ']d', vim.diagnostic.goto_next)
-keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+keymap.set("n", "[d", vim.diagnostic.goto_prev)
+keymap.set("n", "]d", vim.diagnostic.goto_next)
+keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 -- None-ls
 keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
 
 -- Comment
-keymap.set({ "n", "v" }, "<C-_>", "gcc")
+keymap.set({ "n", "v" }, "<C-_>", "gcc", { remap = true })
 
 -- Harpoon
 local harpoon = require("harpoon")
 
-keymap.set("n", "<leader>a", function() harpoon:list():append() end)
+keymap.set("n", "<leader>a", function()
+  harpoon:list():append()
+end)
 
 -- keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
 -- keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
@@ -75,5 +85,9 @@ keymap.set("n", "<leader>a", function() harpoon:list():append() end)
 -- keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 
 -- Toggle previous & next buffers stored within Harpoon list
-keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+-- keymap.set("n", "<C-S-P>", function()
+  -- harpoon:list():prev()
+-- end)
+-- keymap.set("n", "<C-S-N>", function()
+  -- harpoon:list():next()
+-- end)
