@@ -56,15 +56,16 @@ keymap.set("n", "<leader>u", ":Telescope undo<CR>", {})
 -- })
 
 -- Lspconfig
+keymap.set("n", "gd", vim.lsp.buf.definition, {})
 keymap.set("n", "K", vim.lsp.buf.hover, {})
-keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-
-keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-keymap.set("n", "[d", vim.diagnostic.goto_prev)
-keymap.set("n", "]d", vim.diagnostic.goto_next)
-keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, {})
+keymap.set("n", "<leader>vd", vim.diagnostic.open_float, {})
+keymap.set("n", "[d", vim.diagnostic.goto_next, {})
+keymap.set("n", "]d", vim.diagnostic.goto_prev, {})
+keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, {})
+keymap.set("n", "<leader>vrr", vim.lsp.buf.references, {})
+keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, {})
+keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, {})
 
 -- None-ls
 keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
@@ -86,8 +87,8 @@ end)
 
 -- Toggle previous & next buffers stored within Harpoon list
 -- keymap.set("n", "<C-S-P>", function()
-  -- harpoon:list():prev()
+-- harpoon:list():prev()
 -- end)
 -- keymap.set("n", "<C-S-N>", function()
-  -- harpoon:list():next()
+-- harpoon:list():next()
 -- end)

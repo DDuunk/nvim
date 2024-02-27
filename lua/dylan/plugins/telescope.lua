@@ -18,7 +18,6 @@ return {
 					"--column",
 					"--smart-case",
 					"--hidden",
-          "!**/.git/*",
 				},
 			},
 			pickers = {
