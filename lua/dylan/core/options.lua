@@ -15,8 +15,18 @@ opt.expandtab = true
 -- opt.autoindent = true
 opt.smartindent = true
 
--- Line wrapping
+-- Line wrappin
+-- opt.textwidth = 0
+-- opt.wrapmargin = 0
+-- opt.wrap = true
+-- opt.linebreak = true
+-- opt.columns = 80
 opt.wrap = false
+
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+opt.undofile = true
 
 -- Search settings
 opt.ignorecase = true
@@ -32,3 +42,5 @@ opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.scrolloff = 8
 opt.isfname:append("@-@")
+
+opt.colorcolumn = "80"
