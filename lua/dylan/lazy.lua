@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local opts = {}
-
-require("lazy").setup("dylan.plugins", opts)
+require("lazy").setup({
+	spec = "dylan.plugins",
+	change_detection = { notify = false },
+})
