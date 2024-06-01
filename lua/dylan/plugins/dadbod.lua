@@ -1,0 +1,22 @@
+return {
+  -- "tpope/vim-dadbod",
+  -- dependencies = {
+  -- 	"pbogut/vim-dadbod-ssh",
+  -- 	"kristijanhusak/vim-dadbod-ui",
+  -- 	"kristijanhusak/vim-dadbod-completion",
+  -- },
+  -- config = function()
+  -- 	vim.g.db_ui_use_nerd_fonts = 1
+  --
+  -- 	-- vim.g.dbs = {
+  -- 	-- { name = "dev", url = "postgres://postgres:mypassword@localhost:5432/my-dev-db" },
+  -- 	-- { name = "staging", url = "postgres://postgres:mypassword@localhost:5432/my-staging-db" },
+  -- 	-- }
+  --
+  -- 	vim.g.dbs = {
+  -- 		dev = "postgres://postgres:mypassword@localhost:5432/my-dev-db",
+  -- 		staging = "postgres://postgres:mypassword@localhost:5432/my-staging-db",
+  -- 		wp = "mysql://root@localhost/wp_awesome",
+  -- 	}
+  -- end,
+}
