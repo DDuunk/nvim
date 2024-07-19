@@ -11,8 +11,8 @@ local function ColorMyPencils(color)
   vim.api.nvim_set_hl(0, "treesittercontext", { bg = "none", underline = true })
   vim.api.nvim_set_hl(0, "treesittercontextlinenumber", { bg = "none", underline = true })
 
-  vim.api.nvim_set_hl(0, 'FidgetTitle', { link = "NormalFloat" })
-  vim.api.nvim_set_hl(0, 'FidgetTask', { link = "NormalFloat" })
+  vim.api.nvim_set_hl(0, "FidgetTitle", { link = "NormalFloat" })
+  vim.api.nvim_set_hl(0, "FidgetTask", { link = "NormalFloat" })
 end
 
 return {
@@ -22,8 +22,8 @@ return {
       require("tokyonight").setup({
         -- your configuration comes here
         -- or leave it empty to use the default settings
-        style = "storm",        -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-        transparent = true,     -- Enable this to disable setting the background color
+        style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+        transparent = true, -- Enable this to disable setting the background color
         terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
         styles = {
           -- Style to be applied to different syntax groups
@@ -32,7 +32,7 @@ return {
           keywords = { italic = false },
           -- Background styles. Can be "dark", "transparent" or "normal"
           sidebars = "transparent", -- style for sidebars, see below
-          floats = "transparent",   -- style for floating windows
+          floats = "transparent", -- style for floating windows
         },
       })
     end,
