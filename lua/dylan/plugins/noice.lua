@@ -4,6 +4,7 @@ return {
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
+    -- "hrsh7th/nvim-cmp",
   },
   config = function()
     require("notify").setup({
@@ -16,9 +17,13 @@ return {
     require("noice").setup({
       -- you can enable a preset for easier configuration
       presets = {
+        command_palette = false, -- position the cmdline and popupmenu together
+        bottom_search = true, -- use a classic bottom cmdline for search
         long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = true,
       },
+
       lsp = {
         signature = { enabled = false },
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -31,6 +36,7 @@ return {
       status = {
         lsp_progress = { event = "lsp", kind = "progress" },
       },
+
       routes = {
         -- Ignore the typical vim change messages.
         {
@@ -54,9 +60,6 @@ return {
           },
           opts = { skip = true },
         },
-      },
-      popupmenu = {
-        enabled = false, -- disable the built-in popupmenu
       },
       cmdline = {
         view = "cmdline",

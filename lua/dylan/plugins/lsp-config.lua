@@ -6,6 +6,9 @@ return {
     { "williamboman/mason.nvim", opts = {} },
     "williamboman/mason-lspconfig.nvim",
 
+    -- LSP Endhints
+    { "chrisgrieser/nvim-lsp-endhints", opts = {} },
+
     -- Angular
     "joeveiga/ng.nvim",
 
@@ -24,7 +27,6 @@ return {
     "hrsh7th/cmp-cmdline",
     { "L3MON4D3/LuaSnip", build = "make install_jsregexp", dependencies = { "rafamadriz/friendly-snippets" } },
     "saadparwaiz1/cmp_luasnip",
-    -- "jcha0713/cmp-tw2css",
   },
   config = function()
     local lsp = require("lsp-zero")
@@ -84,9 +86,23 @@ return {
           completion = {
             callSnippet = "Replace",
           },
+          hint = {
+            enable = true,
+          },
         },
       },
     })
+
+    local inlayHints = {
+      includeInlayParameterNameHints = "all",
+      includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+      includeInlayFunctionParameterTypeHints = true,
+      includeInlayVariableTypeHints = true,
+      includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+      includeInlayPropertyDeclarationTypeHints = true,
+      includeInlayFunctionLikeReturnTypeHints = true,
+      includeInlayEnumMemberValueHints = true,
+    }
 
     require("lspconfig").tsserver.setup({
       commands = {
@@ -102,13 +118,15 @@ return {
           description = "Organize Imports",
         },
       },
+      settings = {
+        typescript = {
+          inlayHints = inlayHints,
+        },
+        javascript = {
+          inlayHints = inlayHints,
+        },
+      },
     })
-
-    -- require("lspconfig").tailwindcss.setup({
-    --   capabilities = lsp.capabilities,
-    --   on_attach = lsp.on_attach,
-    --   autostart = false,
-    -- })
 
     require("lspconfig").angularls.setup({
       cmd = { "ngserver", "--stdio", "--tsProbeLocations", "", "--ngProbeLocations", "" },
@@ -122,26 +140,12 @@ return {
       settings = {
         stylelintplus = {
           autoFixOnFormat = true,
-          -- see available options in stylelint-lsp documentation
         },
       },
       on_attach = function(client)
         client.server_capabilities.document_formatting = false
       end,
     })
-
-    -- require("nvim-lsp-endhints").setup({
-    --   icons = {
-    --     type = "󰜁 ",
-    --     parameter = "󰏪 ",
-    --   },
-    --   label = {
-    --     padding = 1,
-    --     marginLeft = 0,
-    --     bracketedParameters = true,
-    --   },
-    --   autoEnableHints = true,
-    -- })
 
     local cmp = require("cmp")
     local luasnip = require("luasnip")

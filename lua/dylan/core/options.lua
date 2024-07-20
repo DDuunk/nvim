@@ -15,6 +15,9 @@ opt.expandtab = true
 -- opt.autoindent = true
 opt.smartindent = true
 
+-- Backspace
+opt.backspace = "indent,eol,start"
+
 -- Line wrappin
 -- opt.textwidth = 0
 -- opt.wrapmargin = 0
