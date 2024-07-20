@@ -3,10 +3,9 @@ return {
   tag = "0.1.5",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    'nvim-tree/nvim-web-devicons',
+    "nvim-tree/nvim-web-devicons",
     "jonarrien/telescope-cmdline.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
-    -- "debugloop/telescope-undo.nvim",
     "axkirillov/easypick.nvim",
     "folke/todo-comments.nvim",
   },
@@ -46,11 +45,11 @@ return {
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-j>"] = actions.move_selection_next,
             -- ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
-            ["<C-t>"] = trouble_telescope.open
+            ["<C-t>"] = trouble_telescope.open,
           },
           n = {
-            ["<C-t>"] = trouble_telescope.open
-          }
+            ["<C-t>"] = trouble_telescope.open,
+          },
         },
       },
       pickers = {
@@ -77,7 +76,6 @@ return {
 
     -- require("telescope").load_extension("cmdline")
     require("telescope").load_extension("ui-select")
-    -- require("telescope").load_extension("undo")
 
     local keymap = vim.keymap
 
