@@ -72,10 +72,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
+          init_selection = "<CR>",
+          node_incremental = "<CR>",
+          scope_incremental = "grc",
+          node_decremental = "<BS>",
         },
       },
 
@@ -129,20 +129,31 @@ return {
     })
 
     local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+    local keymap = vim.keymap
 
     -- Repeat movement with ; and ,
     -- ensure ; goes forward and , goes backward regardless of the last direction
-    vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
-    vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+    keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+    keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
 
     -- vim way: ; goes to the direction you were moving.
     -- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
     -- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
 
     -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-    vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
-    vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
-    vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
-    vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
+    keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
+    keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
+    keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
+    keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
+
+    keymap.set({ "n", "v" }, "<C-_>", "gcc", { remap = true })
+    -- keymap.set({ "n", "v" }, "<CR>", "gnn", { remap = true })
+    -- keymap.set({ "n", "v" }, "<CR>", "grn", { noremap = true, silent = true })
+    -- keymap.set({ "n", "v" }, "<BS>", "grm", { remap = true })
+
+    -- Keybindings for whole document selection
+    keymap.set("n", "yig", ":%y<CR>", { noremap = true, silent = true })
+    keymap.set("n", "vig", "ggVG", { noremap = true, silent = true })
+    keymap.set("n", "dig", ":%d<CR>i", { noremap = true, silent = true })
   end,
 }
