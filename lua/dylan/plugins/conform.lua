@@ -36,8 +36,6 @@ return {
         graphql = { "prettierd", "prettier" },
         go = { "goimports", "gofmt" },
         rust = { "rustfmt" },
-
-        ["*"] = { "codespell" },
         -- Use the "_" filetype to run formatters on filetypes that don't
         -- have other formatters configured.
         ["_"] = { "trim_whitespace" },
