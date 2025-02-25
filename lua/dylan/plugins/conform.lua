@@ -1,52 +1,54 @@
 return {
   "stevearc/conform.nvim",
-  event = { "BufWritePre", "BufNewFIle" },
+  event = { "BufWritePre", "BufNewFile" },
+  cmd = { "ConformInfo" },
   keys = {
     {
       "<leader>gf",
       function()
         require("conform").format({ async = true, lsp_fallback = true })
       end,
-      mode = "",
       desc = "Format buffer",
     },
   },
-  config = function()
-    local conform = require("conform")
-
-    conform.setup({
-      log_level = vim.log.levels.INFO,
-      notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        return {
-          timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-        }
-      end,
-      formatters_by_ft = {
-        lua = { "stylua" },
-        typescript = { "prettierd", "prettier" },
-        typescriptreact = { "prettierd", "prettier" },
-        javascript = { "prettierd", "prettier" },
-        javascriptreact = { "prettierd", "prettier" },
-        graphql = { "prettierd", "prettier" },
-        go = { "goimports", "gofmt" },
-        rust = { "rustfmt" },
-        -- Use the "_" filetype to run formatters on filetypes that don't
-        -- have other formatters configured.
-        ["_"] = { "trim_whitespace" },
-      },
-    })
-
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = "*",
-      callback = function(args)
-        require("conform").format({ bufnr = args.buf, lsp_fallback = true })
-      end,
-    })
-  end,
+  opts = {
+    formatters_by_ft = {
+      lua = { "stylua" },
+      python = { "black" },
+      rust = { "rustfmt" },
+      javascript = { "prettierd", "prettier", stop_after_first = true },
+      javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+      typescript = { "prettierd", "prettier", stop_after_first = true },
+      typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+      graphql = { "prettierd", "prettier" },
+      go = { "gofumpt", "golines", "goimports-reviser" },
+      c = { "clang-format" },
+      cpp = { "clang-format" },
+      haskell = { "ormolu" },
+      html = { "prettierd", "prettier", stop_after_first = true },
+      json = { "prettierd", "prettier", stop_after_first = true },
+      markdown = { "prettierd", "prettier", stop_after_first = true },
+      gleam = { "gleam" },
+      sql = { "sqlfmt" },
+      asm = { "asmfmt" },
+      terraform = { "terragrunt_hclfmt", "terraform_fmt" },
+      nix = { "nixfmt" },
+      -- yaml = { "yamlfix" },
+      ["_"] = { "trim_whitespace" }, -- Default formatter for unconfigured filetypes
+    },
+    format_on_save = {
+      timeout_ms = 500,
+      lsp_format = "fallback",
+    },
+  },
+  -- config = function()
+  --   require("conform").setup({
+  --     formatters = {
+  --       yamlfix = {
+  --         command = "yamlfix",
+  --         args = { "--in-place" },
+  --       },
+  --     }
+  --   })
+  -- end
 }

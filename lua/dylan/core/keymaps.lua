@@ -1,6 +1,7 @@
 local keymap = vim.keymap
 
-keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open parent directory" })
+-- keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open parent directory" })
+keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- keymap.set({ "n", "v" }, "H", "^", { desc = "Move to start of line" })
 -- keymap.set({ "n", "v" }, "L", "$", { desc = "Move to end of line" })
@@ -29,7 +30,13 @@ keymap.set("x", "p", [["_dP]])
 keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = 'Yank into " register' })
 keymap.set("n", "<leader>Y", [["+Y]], { desc = 'Yank into " register' })
 
-keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete into black hole register" })
+
+-- Duplicate line and comment out the first line
+-- keymap.set("n", "yc", "yyg<cmd>normal gcc<CR>p")
+keymap.set("n", "yc", function()
+  vim.api.nvim_feedkeys("yygccp", "m", false)
+end)
 
 -- Get out of search
 keymap.set({ "n", "v" }, "<ESC>", ":noh<CR>", { desc = "Get out of search" })
@@ -57,3 +64,11 @@ keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Equalize window sizes" })
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
+
+-- Turn into string list
+vim.api.nvim_set_keymap("n", "<leader>wq", [[:%s/\v(.*)/'\1',/<CR>:%s/,\n$//<CR>]], { noremap = true, silent = true })
+-- keymap.set("v", "<leader>q", '<cmd>:norm I"<Esc>A"<Esc>A,<CR>', { noremap = true, silent = true })
+-- vim.keymap.set("v", "ma", [[:s/^/"/g<CR>:s/$/",/g<CR>]], { noremap = true, silent = true })
+-- keymap.set("v", "ma", ':norm I"<Esc>A",<CR>', { noremap = true, silent = true })
+-- keymap.set("n", "<leader>q", '<cmd>:%norm I"jkxA,<CR>', { noremap = true, silent = true })
+-- keymap.set("v", "<leader>q", [[:s/\v(\w+)/"\1"/g<CR>:'<,'>s/\n/, /g<CR>:noh<CR>]], { noremap = true, silent = true })

@@ -1,0 +1,23 @@
+return {
+  --   "vuki656/package-info.nvim",
+  --   ft = "json",
+  --   dependencies = { "MunifTanjim/nui.nvim" },
+  --   config = function()
+  --     local package_info = require("package-info")
+  --
+  --     package_info.setup({
+  --       autostart = true,
+  --       package_manager = "pnpm",
+  --       hide_up_to_date = true,
+  --     })
+  --
+  --     local keymap = vim.keymap.set
+  --     local opts = { silent = true, noremap = true }
+  --
+  --     -- Keybindings for package management
+  --     keymap("n", "<leader>pis", package_info.show, vim.tbl_extend("force", opts, { desc = "Show dependency versions" }))
+  --     keymap("n", "<leader>piu", package_info.update, vim.tbl_extend("force", opts, { desc = "Update dependency on line" }))
+  --     keymap("n", "<leader>pid", package_info.delete, vim.tbl_extend("force", opts, { desc = "Delete dependency on line" }))
+  --     keymap("n", "<leader>pip", package_info.change_version, vim.tbl_extend("force", opts, { desc = "Change dependency version" }))
+  --   end,
+}

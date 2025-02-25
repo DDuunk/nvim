@@ -1,50 +1,33 @@
 return {
   "nvim-telescope/telescope.nvim",
-  tag = "0.1.5",
+  branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-tree/nvim-web-devicons",
-    "jonarrien/telescope-cmdline.nvim",
-    "nvim-telescope/telescope-ui-select.nvim",
-    "axkirillov/easypick.nvim",
-    "folke/todo-comments.nvim",
+    -- "folke/todo-comments.nvim",
+    -- "someone-stole-my-name/yaml-companion.nvim",
   },
-  -- keys = {
-  --   { ":", "<cmd>Telescope cmdline<cr>", desc = "Cmdline" },
-  -- },
   config = function()
-    local telescope = require("telescope")
     local actions = require("telescope.actions")
-    local builtin = require("telescope.builtin")
-    local transform_mod = require("telescope.actions.mt").transform_mod
-
-    local trouble = require("trouble")
     local trouble_telescope = require("trouble.sources.telescope")
 
-    local custom_actions = transform_mod({
-      open_trouble_qflist = function(prompt_bufnr)
-        trouble.toggle("quickfix")
-      end,
-    })
+    local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
 
-    telescope.setup({
+    -- I want to search hidden/dot files.
+    table.insert(vimgrep_arguments, "--hidden")
+    -- I don't want to search inside `.git` directory.
+    table.insert(vimgrep_arguments, "--glob")
+    table.insert(vimgrep_arguments, "!**/.git/*")
+
+    require("telescope").setup({
       defaults = {
         path_display = { "truncate" },
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-          "--hidden",
-        },
+        vimgrep_arguments = vimgrep_arguments,
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-j>"] = actions.move_selection_next,
-            -- ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
             ["<C-t>"] = trouble_telescope.open,
           },
           n = {
@@ -56,34 +39,23 @@ return {
         find_files = {
           hidden = true,
           -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-          find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-        },
-      },
-      extensions = {
-        -- ["cmdline"] = {
-        --   picker = {
-        --     layout_config = {
-        --       width = 0.8,
-        --       height = 25,
-        --     },
-        --   },
-        -- },
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown({}),
+          find_command = { "rg", "--no-config", "--files", "--hidden", "--glob", "!**/.git/*", "--sortr=modified" },
         },
       },
     })
 
-    -- require("telescope").load_extension("cmdline")
-    require("telescope").load_extension("ui-select")
+    require("telescope").load_extension("fzf")
+    require("telescope").load_extension("advanced_git_search")
 
     local keymap = vim.keymap
+    local builtin = require("telescope.builtin")
 
     keymap.set("n", "<leader>pf", builtin.find_files, {})
     keymap.set("n", "<C-p>", builtin.git_files, {})
     keymap.set("n", "<C-g>", function()
       builtin.git_status()
     end)
+    keymap.set("n", "<C-b>", builtin.git_commits, {})
     keymap.set("n", "<leader>ps", function()
       builtin.grep_string({ search = vim.fn.input("Grep > ") })
     end)
@@ -96,5 +68,9 @@ return {
       builtin.grep_string({ search = word })
     end)
     keymap.set("n", "<leader>vh", builtin.help_tags, {})
+    keymap.set("n", "<leader>pi", "<cmd>AdvancedGitSearch<CR>", { desc = "AdvancedGitSearch" })
+    keymap.set("n", "<leader>ep", function()
+      builtin.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
+    end)
   end,
 }

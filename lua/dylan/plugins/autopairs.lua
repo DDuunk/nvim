@@ -1,19 +1,21 @@
 return {
-  "windwp/nvim-autopairs",
-  event = "InsertEnter",
-  config = function()
-    require("nvim-autopairs").setup({
-      check_ts = true, -- Enable treesitter
-      ts_config = {
-        lua = { "string" }, -- Don't add pairs in lua string treesitter nodes
-        javascript = { "template_string" }, -- Don't add pairs in javascript template_string treesitter nodes
-        java = false, -- Don't check treesitter on java
-      },
-    })
-
-    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-    local cmp = require("cmp")
-
-    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-  end,
+  -- "windwp/nvim-autopairs",
+  -- event = "InsertEnter",
+  -- dependencies = {
+  --   "hrsh7th/nvim-cmp",
+  -- },
+  -- config = function()
+  --   local autopairs = require("nvim-autopairs")
+  --   autopairs.setup({
+  --     check_ts = true, -- Enable treesitter integration
+  --     ts_config = {
+  --       lua = { "string" }, -- Exclude pairs in Lua string nodes
+  --       javascript = { "template_string" }, -- Exclude pairs in JavaScript template strings
+  --       java = false, -- Disable treesitter checks for Java
+  --     },
+  --   })
+  --
+  --   -- Integrate nvim-autopairs with nvim-cmp
+  --   require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+  -- end,
 }

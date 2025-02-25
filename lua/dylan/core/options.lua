@@ -47,3 +47,6 @@ opt.scrolloff = 8
 opt.isfname:append("@-@")
 
 opt.colorcolumn = "80"
+
+opt.conceallevel = 0
+-- opt.conceallevel = 2

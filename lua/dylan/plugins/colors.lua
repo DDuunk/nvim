@@ -2,17 +2,30 @@ local function ColorMyPencils(color)
   color = color or "rose-pine"
   vim.cmd.colorscheme(color)
 
-  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-  vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333333" })
-  vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#333333" })
-  vim.api.nvim_set_hl(0, "NotifyBackground", { bg = "#333333" })
-  vim.api.nvim_set_hl(0, "troublenormal", { bg = "none" })
-  vim.api.nvim_set_hl(0, "treesittercontext", { bg = "none", underline = true })
-  vim.api.nvim_set_hl(0, "treesittercontextlinenumber", { bg = "none", underline = true })
+  local highlights = {
+    { group = "Normal", opts = { bg = "none" } },
+    { group = "NormalFloat", opts = { bg = "none" } },
+    { group = "CursorLine", opts = { bg = "#333333" } },
+    { group = "ColorColumn", opts = { bg = "#333333" } },
+    { group = "NotifyBackground", opts = { bg = "#333333" } },
+    { group = "troublenormal", opts = { bg = "none" } },
+    { group = "treesittercontext", opts = { bg = "none", underline = true } },
+    { group = "treesittercontextlinenumber", opts = { bg = "none", underline = true } },
+    { group = "FidgetTitle", opts = { link = "NormalFloat" } },
+    { group = "FidgetTask", opts = { link = "NormalFloat" } },
 
-  vim.api.nvim_set_hl(0, "FidgetTitle", { link = "NormalFloat" })
-  vim.api.nvim_set_hl(0, "FidgetTask", { link = "NormalFloat" })
+    { group = "SnacksIndent1", opts = { fg = "#ea6962" } },
+    { group = "SnacksIndent2", opts = { fg = "#d8a657" } },
+    { group = "SnacksIndent3", opts = { fg = "#458588" } },
+    { group = "SnacksIndent4", opts = { fg = "#8ec07c" } },
+    { group = "SnacksIndent5", opts = { fg = "#d3869b" } },
+    { group = "SnacksIndent6", opts = { fg = "#e78a4e" } },
+    { group = "SnacksIndent7", opts = { fg = "#83a598" } },
+  }
+
+  for _, hl in ipairs(highlights) do
+    vim.api.nvim_set_hl(0, hl.group, hl.opts)
+  end
 end
 
 return {
@@ -20,32 +33,24 @@ return {
     "folke/tokyonight.nvim",
     config = function()
       require("tokyonight").setup({
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-        transparent = true, -- Enable this to disable setting the background color
-        terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+        style = "storm",
+        transparent = true,
+        terminal_colors = true,
         styles = {
-          -- Style to be applied to different syntax groups
-          -- Value is any valid attr-list value for `:help nvim_set_hl`
           comments = { italic = false },
           keywords = { italic = false },
-          -- Background styles. Can be "dark", "transparent" or "normal"
-          sidebars = "transparent", -- style for sidebars, see below
-          floats = "transparent", -- style for floating windows
+          sidebars = "transparent",
+          floats = "transparent",
         },
       })
     end,
   },
-
   {
     "rose-pine/neovim",
     name = "rose-pine",
     config = function()
       require("rose-pine").setup({
-        styles = {
-          transparency = true,
-        },
+        styles = { transparency = true },
       })
 
       ColorMyPencils()
