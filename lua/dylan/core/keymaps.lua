@@ -66,7 +66,7 @@ keymap.set("n", "<leader>se", "<C-w>=", { desc = "Equalize window sizes" })
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 
 -- Turn into string list
-vim.api.nvim_set_keymap("n", "<leader>wq", [[:%s/\v(.*)/'\1',/<CR>:%s/,\n$//<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>Wq", [[:%s/\v(.*)/'\1',/<CR>:%s/,\n$//<CR>]], { noremap = true, silent = true })
 -- keymap.set("v", "<leader>q", '<cmd>:norm I"<Esc>A"<Esc>A,<CR>', { noremap = true, silent = true })
 -- vim.keymap.set("v", "ma", [[:s/^/"/g<CR>:s/$/",/g<CR>]], { noremap = true, silent = true })
 -- keymap.set("v", "ma", ':norm I"<Esc>A",<CR>', { noremap = true, silent = true })

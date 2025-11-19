@@ -2,8 +2,8 @@
   "runtime.version": "Lua 5.4",
   "diagnostics.globals": [
     "vim",
-        "Snacks",
-        "require"
+    "Snacks",
+    "require"
   ],
   "diagnostics.disable": [
     "missing-fields"

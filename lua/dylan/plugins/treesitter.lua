@@ -12,7 +12,7 @@ return {
     dependencies = {
       "windwp/nvim-ts-autotag",
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "Wansmer/treesj",
+      -- "Wansmer/treesj",
     },
     config = function()
       local configs = require("nvim-treesitter.configs")
@@ -63,7 +63,12 @@ return {
 
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-        auto_install = false,
+        auto_install = true,
+
+        indent = {
+          enable = true,
+          disable = { "python" },
+        },
 
         -- Enable synxtax highlighting
         highlight = {
@@ -140,9 +145,9 @@ return {
       })
 
       local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-      local treesj = require("treesj")
+      --      local treesj = require("treesj")
 
-      treesj.setup({})
+      --     treesj.setup({})
 
       local keymap = vim.keymap
 

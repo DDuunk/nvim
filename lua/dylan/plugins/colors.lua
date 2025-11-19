@@ -13,6 +13,8 @@ local function ColorMyPencils(color)
     { group = "treesittercontextlinenumber", opts = { bg = "none", underline = true } },
     { group = "FidgetTitle", opts = { link = "NormalFloat" } },
     { group = "FidgetTask", opts = { link = "NormalFloat" } },
+    { group = "Visual", opts = { bg = "#333333" } },
+    { group = "VisualNonText", opts = { fg = "#5D5F71", bg = "#333333" } },
 
     { group = "SnacksIndent1", opts = { fg = "#ea6962" } },
     { group = "SnacksIndent2", opts = { fg = "#d8a657" } },
@@ -29,22 +31,22 @@ local function ColorMyPencils(color)
 end
 
 return {
-  {
-    "folke/tokyonight.nvim",
-    config = function()
-      require("tokyonight").setup({
-        style = "storm",
-        transparent = true,
-        terminal_colors = true,
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-          sidebars = "transparent",
-          floats = "transparent",
-        },
-      })
-    end,
-  },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   config = function()
+  --     require("tokyonight").setup({
+  --       style = "storm",
+  --       transparent = true,
+  --       terminal_colors = true,
+  --       styles = {
+  --         comments = { italic = false },
+  --         keywords = { italic = false },
+  --         sidebars = "transparent",
+  --         floats = "transparent",
+  --       },
+  --     })
+  --   end,
+  -- },
   {
     "rose-pine/neovim",
     name = "rose-pine",
@@ -56,4 +58,11 @@ return {
       ColorMyPencils()
     end,
   },
+
+  -- "vague2k/vague.nvim",
+  -- config = function()
+  --   require("vague").setup({ transparent = true })
+  --   vim.cmd("colorscheme vague")
+  --   vim.cmd(":hi statusline guibg=NONE")
+  -- end,
 }

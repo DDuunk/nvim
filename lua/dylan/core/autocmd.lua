@@ -5,11 +5,11 @@ local formatGroup = augroup("FormatGroup", { clear = true })
 local spellCheckGroup = augroup("SpellCheck", { clear = true })
 local yankHighlightGroup = augroup("HighlightOnYank", { clear = true })
 local locListGroup = augroup("CloseLoclistWindowGroup", { clear = true })
-
--- Add custom filetype for mdx files
-vim.filetype.add({
-  extension = { mdx = "mdx" },
-})
+--
+-- -- Add custom filetype for mdx files
+-- vim.filetype.add({
+--   extension = { mdx = "mdx" },
+-- })
 
 -- Remove new line comments
 autocmd("BufEnter", {

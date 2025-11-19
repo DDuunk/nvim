@@ -45,7 +45,7 @@ return {
     })
 
     require("telescope").load_extension("fzf")
-    require("telescope").load_extension("advanced_git_search")
+    -- require("telescope").load_extension("advanced_git_search")
 
     local keymap = vim.keymap
     local builtin = require("telescope.builtin")
@@ -68,7 +68,7 @@ return {
       builtin.grep_string({ search = word })
     end)
     keymap.set("n", "<leader>vh", builtin.help_tags, {})
-    keymap.set("n", "<leader>pi", "<cmd>AdvancedGitSearch<CR>", { desc = "AdvancedGitSearch" })
+    -- keymap.set("n", "<leader>pi", "<cmd>AdvancedGitSearch<CR>", { desc = "AdvancedGitSearch" })
     keymap.set("n", "<leader>ep", function()
       builtin.find_files({ cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy") })
     end)

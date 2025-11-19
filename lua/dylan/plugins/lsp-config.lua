@@ -6,9 +6,10 @@ return {
     -- LSP Support
     { "williamboman/mason.nvim", opts = {} },
     "williamboman/mason-lspconfig.nvim",
-
+    "mfussenegger/nvim-jdtls",
+    --
     -- LSP Endhints
-    { "chrisgrieser/nvim-lsp-endhints", opts = {} },
+    -- { "chrisgrieser/nvim-lsp-endhints", opts = {} },
 
     -- Angular
     -- "joeveiga/ng.nvim",
@@ -18,17 +19,17 @@ return {
 
     -- Additional lua configuration
     --     { "folke/neodev.nvim", opts = {} },
-    {
-      "folke/lazydev.nvim",
-      opts = {
-        library = {
-          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        },
-      },
-    },
+    -- {
+    --   "folke/lazydev.nvim",
+    --   opts = {
+    --     library = {
+    --       { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+    --     },
+    --   },
+    -- },
 
     -- Autocompletion
-    "saghen/blink.cmp",
+    -- "saghen/blink.cmp",
     --     "hrsh7th/nvim-cmp",
     --     "onsails/lspkind-nvim",
     --     "hrsh7th/cmp-nvim-lsp",
@@ -40,13 +41,11 @@ return {
     --     "rafamadriz/friendly-snippets",
   },
   config = function()
-    local lspconfig = require("lspconfig")
+    require("lspconfig")
     local builtin = require("telescope.builtin")
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
-
     local keymap = vim.keymap
 
-    lspconfig.lua_ls.setup({ capabilites = capabilities })
+    vim.lsp.inlay_hint.enable(true)
 
     require("mason-lspconfig").setup({
       ensure_installed = {
@@ -54,19 +53,13 @@ return {
         "html",
         "cssls",
         "ts_ls",
-        "angularls",
+        -- "angularls",
         "jsonls",
         "graphql",
         "rust_analyzer",
-        "volar",
         "pyright",
         "terraformls",
-        "java_language_server",
-      },
-      handlers = {
-        function(server_name)
-          require("lspconfig")[server_name].setup({})
-        end,
+        "yamlls",
       },
     })
 
@@ -74,6 +67,7 @@ return {
       desc = "LSP actions",
       callback = function(event)
         local opts = { buffer = event.buf }
+
         keymap.set("n", "gd", builtin.lsp_definitions, opts)
         keymap.set("n", "gr", builtin.lsp_references, opts)
         keymap.set("n", "gI", builtin.lsp_implementations, opts)
@@ -89,13 +83,16 @@ return {
         keymap.set("n", "<leader>vrr", vim.lsp.buf.references, {})
         keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, {})
         keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, {})
+        keymap.set("n", "<leader>th", function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          vim.notify("Inlay hints " .. (vim.lsp.inlay_hint.is_enabled() and "enabled" or "disabled"))
+        end, {})
 
         -- keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
         -- keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
         -- keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
         -- keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
         -- keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-        -- keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
         -- keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
         -- keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
         -- keymap.set({ "n", "x" }, "<F3>", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)

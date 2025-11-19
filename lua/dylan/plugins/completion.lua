@@ -69,26 +69,36 @@ return {
     },
     completion = {
       menu = {
-        border = "single",
+        border = "rounded",
+        cmdline_position = function()
+          if vim.g.ui_cmdline_pos ~= nil then
+            local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+            return { pos[1] - 1, pos[2] }
+          end
+          local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+          return { vim.o.lines - height, 0 }
+        end,
+
         draw = {
-          treesitter = { "lsp" },
-          columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+          -- treesitter = { "lsp" },
+          columns = { { "label", "label_description", gap = 1 }, { "kind" } },
         },
       },
       -- Show documentation when selecting a completion item
-      documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 200,
-        window = {
-          border = "single",
-        },
-      },
+      -- documentation = {
+      --   auto_show = false,
+      --   -- auto_show_delay_ms = 500,
+      --   window = {
+      --     border = "single",
+      --   },
+      --   treesitter_highlighting = false,
+      -- },
     },
     signature = {
       enabled = true,
       window = {
-        border = "single",
-        show_documentation = true,
+        border = "rounded",
+        -- show_documentation = true,
       },
     },
   },
